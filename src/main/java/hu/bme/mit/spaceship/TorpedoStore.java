@@ -5,16 +5,17 @@ import java.util.Random;
 /**
 * Class storing and managing the torpedos of a ship
 */
-public class TorpedoStore {
+public class TorpedoStore implements Fireable {
 
   private int torpedos = 0;
   private Random generator = new Random();
 
-  public TorpedoStore(int numberOfTorpedos){
+  public TorpedoStore(int numberOfTorpedos) {
     this.torpedos = numberOfTorpedos;
   }
 
-  public boolean fire(int numberOfTorpedos){
+  @Override
+  public boolean fire(int numberOfTorpedos) {
     if(numberOfTorpedos < 1 || numberOfTorpedos > this.torpedos){
       throw new IllegalArgumentException("numberOfTorpedos");
     }
@@ -24,7 +25,7 @@ public class TorpedoStore {
     //simulate random overheating of the launcher bay which prevents firing
     double r = generator.nextDouble();
 
-    if (r > 0.1) {
+    if (r > 0.01) {
       // successful firing
       this.torpedos -= numberOfTorpedos;
       success = true;
@@ -36,7 +37,8 @@ public class TorpedoStore {
     return success;
   }
 
-  public boolean isEmpty(){
+  @Override
+  public boolean isEmpty() {
     return this.torpedos <= 0;
   }
 
