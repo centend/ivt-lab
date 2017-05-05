@@ -9,8 +9,6 @@ public class GT4500 implements SpaceShip {
   private TorpedoStore primaryTorpedoStore;
   private TorpedoStore secondaryTorpedoStore;
 
-  private static final int STANDARD_PHOTON_BURST_COUNT = 100;
-
   private boolean wasLeftLaserFiredLast = false;
   private LaserGun leftLaserGun;
   private LaserGun rightLaserGun;
@@ -55,15 +53,8 @@ public class GT4500 implements SpaceShip {
 
   private boolean fireAllLasers() {
 
-    boolean firingSuccess = false;
-
-    try {
-      leftLaserGun.fire(STANDARD_PHOTON_BURST_COUNT);
-      rightLaserGun.fire(STANDARD_PHOTON_BURST_COUNT);
-      firingSuccess = true;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
+    boolean firingSuccess = leftLaserGun.fire();
+    firingSuccess = firingSuccess && rightLaserGun.fire();
 
     return firingSuccess;
   }
@@ -72,17 +63,12 @@ public class GT4500 implements SpaceShip {
 
     boolean firingSuccess = false;
 
-    try {
-      if (wasLeftLaserFiredLast) {
-        rightLaserGun.fire(STANDARD_PHOTON_BURST_COUNT);
-        wasLeftLaserFiredLast = false;
-      } else {
-        leftLaserGun.fire(STANDARD_PHOTON_BURST_COUNT);
-        wasLeftLaserFiredLast = true;
-      }
-      firingSuccess = true;
-    } catch (IllegalArgumentException e) {
-      return false;
+    if (wasLeftLaserFiredLast) {
+      firingSuccess = rightLaserGun.fire();
+      wasLeftLaserFiredLast = false;
+    } else {
+      firingSuccess = leftLaserGun.fire();
+      wasLeftLaserFiredLast = true;
     }
 
     return firingSuccess;
@@ -128,7 +114,7 @@ public class GT4500 implements SpaceShip {
       wasPrimaryFiredLast = true;
     }
     if (! secondaryTorpedoStore.isEmpty()) {
-      firingSuccess = secondaryTorpedoStore.fire(1);
+      firingSuccess = firingSuccess && secondaryTorpedoStore.fire(1);
       wasPrimaryFiredLast = false;
     }
 
