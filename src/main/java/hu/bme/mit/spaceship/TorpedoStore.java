@@ -10,6 +10,10 @@ public class TorpedoStore implements Fireable {
   private int torpedos = 0;
   private Random generator = new Random();
 
+  private static final int INITIAL_TORPEDO_COUNT = 10;
+
+  public TorpedoStore() { this.torpedos = INITIAL_TORPEDO_COUNT; }
+
   public TorpedoStore(int numberOfTorpedos) {
     this.torpedos = numberOfTorpedos;
   }

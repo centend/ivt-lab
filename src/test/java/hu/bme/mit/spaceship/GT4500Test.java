@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 public class GT4500Test {
 
@@ -12,7 +13,14 @@ public class GT4500Test {
 
   @Before
   public void init(){
-    this.ship = new GT4500();
+    TorpedoStore primaryTorpedoStore = new TorpedoStore();
+    TorpedoStore secondaryTorpedoStore = new TorpedoStore();
+
+    LaserGun leftLaserGun = new LaserGun();
+    LaserGun rightLaserGun = new LaserGun();
+
+    this.ship = new GT4500(primaryTorpedoStore, secondaryTorpedoStore,
+        leftLaserGun, rightLaserGun);
   }
 
   @Test

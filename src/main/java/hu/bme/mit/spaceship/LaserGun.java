@@ -7,6 +7,10 @@ public class LaserGun implements Fireable {
 
   private int photons = 0;
 
+  private static final int INITIAL_PHOTON_COUNT = 1000000;
+
+  public LaserGun() { this.photons = INITIAL_PHOTON_COUNT; }
+
   public LaserGun(int numberOfPhotons) {
     this.photons = numberOfPhotons;
   }

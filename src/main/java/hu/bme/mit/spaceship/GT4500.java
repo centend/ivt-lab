@@ -5,25 +5,23 @@ package hu.bme.mit.spaceship;
 */
 public class GT4500 implements SpaceShip {
 
-  private static final int INITIAL_TORPEDO_COUNT = 10;
-
   private boolean wasPrimaryFiredLast = false;
   private TorpedoStore primaryTorpedoStore;
   private TorpedoStore secondaryTorpedoStore;
 
-  private static final int INITIAL_PHOTON_COUNT = 1000000;
   private static final int STANDARD_PHOTON_BURST_COUNT = 100;
 
   private boolean wasLeftLaserFiredLast = false;
   private LaserGun leftLaserGun;
   private LaserGun rightLaserGun;
 
-  public GT4500() {
-    this.primaryTorpedoStore = new TorpedoStore(INITIAL_TORPEDO_COUNT);
-    this.secondaryTorpedoStore = new TorpedoStore(INITIAL_TORPEDO_COUNT);
+  public GT4500(TorpedoStore primaryTorpedoStore, TorpedoStore secondaryTorpedoStore,
+                LaserGun leftLaserGun, LaserGun rightLaserGun) {
+    this.primaryTorpedoStore = primaryTorpedoStore;
+    this.secondaryTorpedoStore = secondaryTorpedoStore;
 
-    leftLaserGun = new LaserGun(INITIAL_PHOTON_COUNT);
-    rightLaserGun = new LaserGun(INITIAL_PHOTON_COUNT);
+    this.leftLaserGun = leftLaserGun;
+    this.rightLaserGun = rightLaserGun;
   }
 
   /**
